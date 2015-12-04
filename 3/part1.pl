@@ -9,15 +9,18 @@ my $x = 0;
 my $y = 0;
 my %houses;
 
+$houses{$x}{$y}++;   
+
 for $step (split "", $directions[0]) {
    # Record this house as receiving a present.
-   $houses{$x}{$y}++;   
    
    # Move to next house.
    $x++ if $step eq '>';
    $x-- if $step eq '<';
    $y++ if $step eq '^';
    $y-- if $step eq 'v';
+
+   $houses{$x}{$y}++;   
    
 }
 

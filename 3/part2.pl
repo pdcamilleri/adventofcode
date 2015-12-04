@@ -22,18 +22,9 @@ my %robot;
 # Here we now have pairs of directions, e.g. [ 'V>', '<^', ...]
 @direction_pairs = ( $directions[0] =~ m/../g );
 
-for $step (@direction_pairs) {
-   # Record this house as receiving a present,
-   # but not if robot-santa has already been there.
-   if (not $robot{$sx}{$sy}) {
-      $santa{$sx}{$sy}++;   
-   }
- 
-   # Don't record house if santa has already been there
-   if (not $santa{$rx}{$ry}) {
-      $robot{$rx}{$ry}++;
-   }
+$santa{$sx}{$sy}++;   
 
+for $step (@direction_pairs) {
    # Break up the combined step into its components.
    ($santa_step, $robot_step) = split //, $step;
 
@@ -48,6 +39,17 @@ for $step (@direction_pairs) {
    $rx-- if $robot_step eq '<';
    $ry++ if $robot_step eq '^';
    $ry-- if $robot_step eq 'v';
+
+   # Record this house as receiving a present,
+   # but not if robot-santa has already been there.
+   if (not $robot{$sx}{$sy}) {
+      $santa{$sx}{$sy}++;   
+   }
+ 
+   # Don't record house if santa has already been there
+   if (not $santa{$rx}{$ry}) {
+      $robot{$rx}{$ry}++;
+   }
    
 }
 
